@@ -65,8 +65,10 @@ function generate_page(el, page) {
     el.height = slides[page].height;
 }
 
+// Create and bind gallery object
 gallery = new SwipeView('#wrapper', { numberOfPages: slides.length });
 gallery.bind();
+
 // Load initial data
 for (i=0; i<3; i++) {
     page = i===0 ? slides.length-1 : i-1;
@@ -83,6 +85,7 @@ for (i=0; i<3; i++) {
     el.innerHTML = slides[page].desc;
     gallery.masterPages[i].appendChild(el);
 }
+
 gallery.onFlip(function () {
     var el,
         upcoming,
@@ -101,9 +104,11 @@ gallery.onFlip(function () {
     document.querySelector('#nav .selected').className = '';
     dots[gallery.pageIndex+1].className = 'selected';
 });
+
 gallery.onMoveOut(function () {
     gallery.masterPages[gallery.currentMasterPage].className = gallery.masterPages[gallery.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
 });
+
 gallery.onMoveIn(function () {
     var className = gallery.masterPages[gallery.currentMasterPage].className;
     /(^|\s)swipeview-active(\s|$)/.test(className) || (gallery.masterPages[gallery.currentMasterPage].className = !className ? 'swipeview-active' : className + ' swipeview-active'); // jshint ignore:line
