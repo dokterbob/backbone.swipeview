@@ -21,6 +21,11 @@ module.exports = function(grunt) {
       dist: {
         src: 'src/js/app.js',
         dest: 'dist/bundle.js'
+      },
+      options: {
+        browserifyOptions: {
+          debug: true
+        }
       }
     },
     sync: {
