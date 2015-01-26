@@ -3,7 +3,8 @@
 // Setup Backbone with jQuery
 require('backbone-jquery');
 
-var slides = require('./collections/slides'),
+var $ = require('jquery'),
+    slides = require('./collections/slides'),
     SlideList = require('./views/slidelist');
 
 // Set $ on Backbone
@@ -14,7 +15,11 @@ document.addEventListener(
     'touchmove', function (e) { e.preventDefault(); }, false
 );
 
-var slide_list = new SlideList({
-    id: 'wrapper',
-    collection: slides
+$(function () {
+    var slide_list = new SlideList({
+        el: '#wrapper',
+        collection: slides
+    });
+
+    slide_list.render();
 });

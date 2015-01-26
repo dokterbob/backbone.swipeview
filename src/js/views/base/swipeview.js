@@ -105,6 +105,7 @@
         render: function(options) {
             // Render SwipeView
 
+            console.log('Rendering SwipeView');
             console.assert(this.el);
             console.assert(this.collection);
 
@@ -184,6 +185,8 @@
                 appview.trigger('page_changed', appview.carousel.pageIndex);
             }, this));
 
+            this.carousel.bind();
+
             // If model specified, navigate to specified page
             if (this.model) {
                 this.go_to(this.model);
@@ -204,6 +207,7 @@
 
         render_subview: function(page_index) {
             // Instantiate a new subview for this page.
+            console.log('Rendering SwipeView page: '+page_index);
 
             // Request the model using the page_index from the collection.
             var obj = this.collection.at(page_index);
