@@ -3,7 +3,8 @@
 var console = require('console-browserify'),
     $ = require('jquery'),
     Backbone = require('backbone'),
-    SwipeView = require('swipeview');
+    SwipeView = require('swipeview'),
+    slides = require('./collections/slides');
 
 // Bind jQuery to Backbone
 Backbone.$ = $;
@@ -18,52 +19,14 @@ var gallery,
     el,
     i,
     page,
-    dots = document.querySelectorAll('#nav li'),
-    slides = [
-        {
-            img: 'images/pic01.jpg',
-            width: 300,
-            height: 213,
-            desc: 'Piazza del Duomo, Florence, Italy'
-        },
-        {
-            img: 'images/pic02.jpg',
-            width: 300,
-            height: 164,
-            desc: 'Tuscan Landscape'
-        },
-        {
-            img: 'images/pic03.jpg',
-            width: 300,
-            height: 213,
-            desc: 'Colosseo, Rome, Italy'
-        },
-        {
-            img: 'images/pic04.jpg',
-            width: 147,
-            height: 220,
-            desc: 'Somewhere near Chinatown, San Francisco'
-        },
-        {
-            img: 'images/pic05.jpg',
-            width: 300,
-            height: 213,
-            desc: 'Medieval guard tower, Asciano, Siena, Italy'
-        },
-        {
-            img: 'images/pic06.jpg',
-            width: 165,
-            height: 220,
-            desc: 'Leaning tower, Pisa, Italy'
-        }
-    ];
+    dots = document.querySelectorAll('#nav li');
 
 function update_img(el, page_number) {
     // Update img element
     el.className = 'loading';
-    el.src = slides[page_number].img;
-    el.width = slides[page_number].width;
-    el.height = slides[page_number].height;
+    el.src = slides.at(page_number).attributes.img;
+    el.width = slides.at(page_number).attributes.width;
+    el.height = slides.at(page_number).attributes.height;
 }
 
 function create_img() {
@@ -90,7 +53,7 @@ function create_page(gallery, page_number) {
 
     // Render and append description
     el = document.createElement('span');
-    el.innerHTML = slides[page_number].desc;
+    el.innerHTML = slides.at(page_number).attributes.desc;
     gallery.masterPages[i].appendChild(el);
 }
 
@@ -102,7 +65,7 @@ function update_page(master_page, page_number) {
     update_img(el, page_number);
 
     el = master_page.querySelector('span');
-    el.innerHTML = slides[page_number].desc;
+    el.innerHTML = slides.at(page_number).attributes.desc;
 }
 
 // Create and bind gallery object
