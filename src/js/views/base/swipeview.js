@@ -114,8 +114,6 @@
             console.assert(this.el);
             console.assert(this.collection);
 
-            var appview = this;
-
             this.gallery = new RestorableSwipeView(this.el, {
                 numberOfPages: this.pageCount(),
                 loop: false,
@@ -128,7 +126,7 @@
 
             // Load initial data
             for (var i=0; i<3; i++) {
-                var page = i===0 ? appview.pageCount()-1 : i-1;
+                var page = i===0 ? this.pageCount()-1 : i-1;
                 var master_page = $(this.gallery.masterPages[i]);
 
                 var view = this.render_subview(page, options);
@@ -145,25 +143,25 @@
                 // Trigger 'first_page' and 'last_page' signals on,
                 // respectively, the first and the last page.
                 if (pageindex === 0) {
-                    appview.trigger('first_page');
+                    this.trigger('first_page');
                 }
 
-                if (pageindex === appview.pageCount()-1) {
-                    appview.trigger('last_page');
+                if (pageindex === this.pageCount()-1) {
+                    this.trigger('last_page');
                 }
-            });
+            }, this);
 
             // Callback for page changes
             this.gallery.onFlip($.proxy(function () {
                 var i;
                 for (i=0; i<3; i++) {
-                    var master_page = appview.gallery.masterPages[i];
+                    var master_page = this.gallery.masterPages[i];
                     var upcoming_idx = master_page.dataset.upcomingPageIndex;
 
                     // Determine whether we should actually render a new page
                     if (upcoming_idx !== master_page.dataset.pageIndex) {
                         // Remove the old view.
-                        var old_view = appview.subViews[i];
+                        var old_view = this.subViews[i];
                         console.log('Deleting old view for: '+old_view.model.id);
                         old_view.remove();
                         old_view = null;
@@ -172,18 +170,18 @@
                         $(master_page).append(view.el);
 
                         // Store subview for later reference
-                        appview.subViews[i] = view;
+                        this.subViews[i] = view;
 
                     }
                 }
 
                 // Trigger page changed event on main view
-                var current_subview = appview.current_subview();
+                var current_subview = this.current_subview();
                 if (current_subview) {
                     current_subview.trigger('activated');
                 }
 
-                appview.trigger('page_changed', appview.gallery.pageIndex);
+                this.trigger('page_changed', this.gallery.pageIndex);
             }, this));
 
             this.gallery.bind();
