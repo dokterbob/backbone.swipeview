@@ -1,3 +1,7 @@
-var bla = {};
+'use strict';
 
-module.exports = bla;
+var $ = require('jquery'),
+    Backbone = require('backbone'),
+    SwipeView = require('swipeview');
+
+Backbone.$ = $;
