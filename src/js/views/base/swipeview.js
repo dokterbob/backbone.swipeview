@@ -77,7 +77,7 @@
     return Backbone.View.extend({
         current_subview: function() {
             // Return currently active subview
-            return this.subViews[this.carousel.currentMasterPage];
+            return this.subViews[this.gallery.currentMasterPage];
         },
 
         goTo: function(model) {
@@ -85,7 +85,7 @@
 
             var index = this.collection.indexOf(model);
             if (index >= 0) {
-                this.carousel.goToPage(index);
+                this.gallery.goToPage(index);
 
                 // Update the view's model
                 this.model = model;
@@ -94,12 +94,12 @@
 
         nextPage: function() {
             // Navigate to next page
-            this.carousel.next();
+            this.gallery.next();
         },
 
         previousPage: function() {
             // Navigate to previous page
-            this.carousel.prev();
+            this.gallery.prev();
         },
 
         render: function(options) {
@@ -111,7 +111,7 @@
 
             var appview = this;
 
-            this.carousel = new RestorableSwipeView(this.el, {
+            this.gallery = new RestorableSwipeView(this.el, {
                 numberOfPages: this.collection.size(),
                 loop: false,
                 hastyPageFlip: true
@@ -124,7 +124,7 @@
             // Load initial data
             for (var i=0; i<3; i++) {
                 var page = i===0 ? appview.collection.size()-1 : i-1;
-                var master_page = $(this.carousel.masterPages[i]);
+                var master_page = $(this.gallery.masterPages[i]);
 
                 var view = this.render_subview(page, options);
                 master_page.append(view.el);
@@ -153,10 +153,10 @@
             });
 
             // Callback for page changes
-            this.carousel.onFlip($.proxy(function () {
+            this.gallery.onFlip($.proxy(function () {
                 var i;
                 for (i=0; i<3; i++) {
-                    var master_page = appview.carousel.masterPages[i];
+                    var master_page = appview.gallery.masterPages[i];
                     var upcoming_idx = master_page.dataset.upcomingPageIndex;
 
                     // Determine whether we should actually render a new page
@@ -182,10 +182,10 @@
                     current_subview.trigger('activated');
                 }
 
-                appview.trigger('page_changed', appview.carousel.pageIndex);
+                appview.trigger('page_changed', appview.gallery.pageIndex);
             }, this));
 
-            this.carousel.bind();
+            this.gallery.bind();
 
             // If model specified, navigate to specified page
             if (this.model) {
