@@ -57,17 +57,23 @@ var gallery,
             desc: 'Leaning tower, Pisa, Italy'
         }
     ];
+
+function generate_page(el, page) {
+    el.className = 'loading';
+    el.src = slides[page].img;
+    el.width = slides[page].width;
+    el.height = slides[page].height;
+}
+
 gallery = new SwipeView('#wrapper', { numberOfPages: slides.length });
 gallery.bind();
 // Load initial data
 for (i=0; i<3; i++) {
     page = i===0 ? slides.length-1 : i-1;
     el = document.createElement('img');
-    el.className = 'loading';
-    el.src = slides[page].img;
-    el.width = slides[page].width;
-    el.height = slides[page].height;
+    generate_page(el, page);
     el.onload = function () { this.className = ''; };
+
   // fixes for IE
   el.setAttribute("unselectable", "on");
   el.ondragstart = function() { return false; };
@@ -85,10 +91,7 @@ gallery.onFlip(function () {
         upcoming = gallery.masterPages[i].dataset.upcomingPageIndex;
         if (upcoming != gallery.masterPages[i].dataset.pageIndex) {
             el = gallery.masterPages[i].querySelector('img');
-            el.className = 'loading';
-            el.src = slides[upcoming].img;
-            el.width = slides[upcoming].width;
-            el.height = slides[upcoming].height;
+            generate_page(el, upcoming);
 
             el = gallery.masterPages[i].querySelector('span');
             el.innerHTML = slides[upcoming].desc;
