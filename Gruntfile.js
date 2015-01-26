@@ -20,7 +20,7 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         src: 'src/js/app.js',
-        dest: 'dist/<%= pkg.name %>.js'
+        dest: 'dist/bundle.js'
       }
     },
     sync: {
