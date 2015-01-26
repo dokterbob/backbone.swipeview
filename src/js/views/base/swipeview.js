@@ -136,19 +136,15 @@
             // Nice hook to handle some UX
             this.on('page_changed', function (pageindex) {
                 console.log('Page change to: '+pageindex);
-                // This is a hackish solution for disabling next- and previous buttons
-                // Its to give our users a clue that they reached the start or end of a collection
-                 if (pageindex === 0) {
-                    // Disable previousbutton
-                    $('.prevbutton').css({'opacity':0.5});
-                } else {
-                    $('.prevbutton').css({'opacity':1});
+
+                // Trigger 'first_page' and 'last_page' signals on,
+                // respectively, the first and the last page.
+                if (pageindex === 0) {
+                    appview.trigger('first_page');
                 }
+
                 if (pageindex === appview.collection.size()-1) {
-                    // Disable next nextbutton
-                    $('.nextbutton').css({'opacity':0.5});
-                } else {
-                    $('.nextbutton').css({'opacity':1});
+                    appview.trigger('last_page');
                 }
             });
 
