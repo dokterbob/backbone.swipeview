@@ -102,6 +102,11 @@
             this.gallery.prev();
         },
 
+        pageCount: function() {
+            // Return number of pages
+            return this.collection.size();
+        },
+
         render: function(options) {
             // Render SwipeView
 
@@ -112,7 +117,7 @@
             var appview = this;
 
             this.gallery = new RestorableSwipeView(this.el, {
-                numberOfPages: this.collection.size(),
+                numberOfPages: this.pageCount(),
                 loop: false,
                 hastyPageFlip: true
             });
@@ -123,7 +128,7 @@
 
             // Load initial data
             for (var i=0; i<3; i++) {
-                var page = i===0 ? appview.collection.size()-1 : i-1;
+                var page = i===0 ? appview.pageCount()-1 : i-1;
                 var master_page = $(this.gallery.masterPages[i]);
 
                 var view = this.render_subview(page, options);
@@ -143,7 +148,7 @@
                     appview.trigger('first_page');
                 }
 
-                if (pageindex === appview.collection.size()-1) {
+                if (pageindex === appview.pageCount()-1) {
                     appview.trigger('last_page');
                 }
             });
