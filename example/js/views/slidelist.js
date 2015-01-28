@@ -1,6 +1,10 @@
-/* Swipeable list view of slides. */
+/*
+Swipeable list view of slides.
 
-var SwipeView = require('./base/swipeview'),
+Based on SwipeView's gallery example.
+*/
+
+var SwipeView = require('../../../src/backbone.swipeview'),
     SlideDetail = require('./slidedetail');
 
 var SlideList = SwipeView.extend({

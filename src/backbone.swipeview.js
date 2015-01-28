@@ -14,26 +14,6 @@
 }(this, function (Backbone, SwipeView, _, $) {
     /* A mixin which loads the SwipeView class and keeps 3 subviews in memory. */
 
-    // Example:
-    /*
-    var SlideList = SwipeView.extend({
-        subview: SlideDetail,
-        swipeview_options: {
-            loop: true
-        }
-    });
-
-    var slide_list = new SlideList({
-        el: '#wrapper',
-        collection: slides,
-        swipeview_options: {
-            loop: true
-        }
-    });
-
-    slide_list.render();
-    */
-
     'use strict';
     /* XXX: This also adds the 'restore' and 'destroy' methods to the SwipeView
      * "class". While the intend was to create a new "class" with the old

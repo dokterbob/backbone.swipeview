@@ -5,13 +5,13 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jshint: {
-      files: ['Gruntfile.js', 'src/js/**'],
+      files: ['Gruntfile.js', 'src/**', 'example/js/**'],
       options: {
         jshintrc: true
       }
     },
     watch: {
-      files: ['src/**'],
+      files: ['src/**', 'example/js/**'],
       tasks: ['jshint', 'build'],
       options: {
         livereload: true,
@@ -19,8 +19,8 @@ module.exports = function(grunt) {
     },
     browserify: {
       dist: {
-        src: 'src/js/app.js',
-        dest: 'dist/bundle.js'
+        src: 'example/js/app.js',
+        dest: 'example/bundle.js'
       },
       options: {
         browserifyOptions: {
@@ -28,20 +28,12 @@ module.exports = function(grunt) {
         }
       }
     },
-    sync: {
-      dist: {
-        expand: true,
-        cwd: 'src/',
-        src: ['**', '!js/**'],
-        dest: 'dist/'
-      },
-    },
-    clean: ['dist'],
+    clean: ['example/bundle.js'],
     connect: {
       server: {
         options: {
           port: 9001,
-          base: 'dist',
+          base: 'example',
           livereload: true,
           open: true
         }
@@ -52,12 +44,8 @@ module.exports = function(grunt) {
   // Load all modules
   require('load-grunt-tasks')(grunt);
 
-  grunt.registerTask('build',
-    ['browserify', 'sync']
-  );
-
   grunt.registerTask('default',
-    ['jshint', 'clean', 'build', 'connect', 'watch']
+    ['jshint', 'clean', 'browserify', 'connect', 'watch']
   );
 
 };
