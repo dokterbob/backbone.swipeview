@@ -7,9 +7,6 @@ var $ = require('jquery'),
     slides = require('./collections/slides'),
     SlideList = require('./views/slidelist');
 
-// Set $ on Backbone
-
-
 // Disable scrolling by default
 document.addEventListener(
     'touchmove', function (e) { e.preventDefault(); }, false
@@ -18,7 +15,10 @@ document.addEventListener(
 $(function () {
     var slide_list = new SlideList({
         el: '#wrapper',
-        collection: slides
+        collection: slides,
+        swipeview_options: {
+            loop: true
+        }
     });
 
     slide_list.render();

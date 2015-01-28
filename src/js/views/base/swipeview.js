@@ -15,15 +15,24 @@
     /* A mixin which loads the SwipeView class and keeps 3 subviews in memory. */
 
     // Example:
+    /*
+    var SlideList = SwipeView.extend({
+        subview: SlideDetail,
+        swipeview_options: {
+            loop: true
+        }
+    });
 
-    // PageView = Backbone.View.extend(_.extend({}, SwipeViewMixin, {
-    //     id: 'sv-wrapper',
-    //     subview: PageDetail
-    // }));
+    var slide_list = new SlideList({
+        el: '#wrapper',
+        collection: slides,
+        swipeview_options: {
+            loop: true
+        }
+    });
 
-    // page_view = new PageView({
-    //     collection: my_collection
-    // });
+    slide_list.render();
+    */
 
     'use strict';
     /* XXX: This also adds the 'restore' and 'destroy' methods to the SwipeView
@@ -75,6 +84,8 @@
     })();
 
     return Backbone.View.extend({
+        swipeview_options: {},
+
         current_subview: function() {
             // Return currently active subview
             return this.subViews[this.gallery.currentMasterPage];
@@ -109,16 +120,18 @@
 
         render: function(options) {
             // Render SwipeView
+            // options are passed to the subview
 
             console.log('Rendering SwipeView');
             console.assert(this.el);
             console.assert(this.collection);
 
-            this.gallery = new RestorableSwipeView(this.el, {
-                numberOfPages: this.pageCount(),
-                loop: false,
-                hastyPageFlip: true
+            // Get swipeview options but make sure number of pages is set
+            var swipeview_options = _.extend({}, this.swipeview_options, {
+                numberOfPages: this.pageCount()
             });
+
+            this.gallery = new RestorableSwipeView(this.el, swipeview_options);
 
             // A list of all the views which are initialized and loaded
             // into the Swipeview.
