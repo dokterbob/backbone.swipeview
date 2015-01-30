@@ -1,17 +1,17 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['backbone', 'swipeview', 'underscore', 'jquery'], factory);
+        define(['backbone', 'swipeview', 'underscore'], factory);
     } else if (typeof exports === 'object') {
         // Node. Does not work with strict CommonJS, but
         // only CommonJS-like environments that support module.exports,
         // like Node.
-        module.exports = factory(require('backbone'), require('swipeview'), require('underscore'), require('jquery'));
+        module.exports = factory(require('backbone'), require('swipeview'), require('underscore'));
     } else {
         // Browser globals (root is window)
-        root.returnExports = factory(root.Backbone, root.SwipeView, root._, root.$);
+        root.returnExports = factory(root.Backbone, root.SwipeView, root._);
     }
-}(this, function (Backbone, SwipeView, _, $) {
+}(this, function (Backbone, SwipeView, _) {
     /* A mixin which loads the SwipeView class and keeps 3 subviews in memory. */
 
     'use strict';
@@ -120,7 +120,7 @@
             // Load initial data
             for (var i=0; i<3; i++) {
                 var page = i===0 ? this.pageCount()-1 : i-1;
-                var master_page = $(this.gallery.masterPages[i]);
+                var master_page = Backbone.$(this.gallery.masterPages[i]);
 
                 var view = this.render_subview(page, options);
                 master_page.append(view.el);
@@ -145,7 +145,7 @@
             }, this);
 
             // Callback for page changes
-            this.gallery.onFlip($.proxy(function () {
+            this.gallery.onFlip(Backbone.$.proxy(function () {
                 var i;
                 for (i=0; i<3; i++) {
                     var master_page = this.gallery.masterPages[i];
@@ -160,7 +160,7 @@
                         old_view = null;
 
                         var view = this.render_subview(upcoming_idx, options);
-                        $(master_page).append(view.el);
+                        Backbone.$(master_page).append(view.el);
 
                         // Store subview for later reference
                         this.subViews[i] = view;

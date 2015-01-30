@@ -11,14 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "backbone": "^1.1.2",
-    "backbone-jquery": "^1.0.1",
-    "jquery": "~2.1.3",
     "console-browserify": "~1.1.0",
     "swipeview": "git://github.com/visualspace/SwipeView#1.3.1",
     "underscore": "^1.6.0"
   },
   "devDependencies": {
     "backbone.marionette": "^2.3.1",
+    "backbone-jquery": "^1.0.1",
+    "jquery": "~2.1.3",
     "grunt": "~0.4.5",
     "grunt-browserify": "~3.3.0",
     "grunt-contrib-clean": "~0.6.0",
