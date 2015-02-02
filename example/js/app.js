@@ -15,10 +15,7 @@ document.addEventListener(
 $(function () {
     var slide_list = new SlideList({
         el: '#wrapper',
-        collection: slides,
-        swipeview_options: {
-            loop: true
-        }
+        collection: slides
     });
 
     slide_list.render();

@@ -8,7 +8,10 @@ var SwipeView = require('../../../src/backbone.swipeview'),
     SlideDetail = require('./slidedetail');
 
 var SlideList = SwipeView.extend({
-    subview: SlideDetail
+    subview: SlideDetail,
+    swipeview_options: {
+        loop: false
+    }
 });
 
 module.exports = SlideList;
