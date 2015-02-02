@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     },
     watch: {
       files: ['src/**', 'example/js/**'],
-      tasks: ['jshint', 'build'],
+      tasks: ['jshint', 'browserify'],
       options: {
         livereload: true,
       },
