@@ -64,6 +64,8 @@
     })();
 
     return Backbone.View.extend({
+        swipeview_options: {},
+
         current_subview: function() {
             // Return currently active subview
             return this.subViews[this.gallery.currentMasterPage];
@@ -105,7 +107,7 @@
             console.assert(this.collection);
 
             // Get swipeview options but make sure number of pages is set
-            var swipeview_options = _.extend({}, options.swipeview_options, {
+            var swipeview_options = _.extend({}, this.swipeview_options, {
                 numberOfPages: this.pageCount()
             });
 
@@ -117,9 +119,7 @@
 
             // Load initial data
             for (var i=0; i<3; i++) {
-                // Determine page corresponding with current master page
                 var page = i===0 ? this.pageCount()-1 : i-1;
-
                 var master_page = Backbone.$(this.gallery.masterPages[i]);
 
                 var view = this.render_subview(page, options);
@@ -155,7 +155,7 @@
                     if (upcoming_idx != "undefined" && upcoming_idx !== master_page.dataset.pageIndex) {
                         // Remove the old view.
                         var old_view = this.subViews[i];
-                        console.log('Deleting old view for: ', old_view.model);
+                        console.log('Deleting old view for: '+old_view.model.id);
                         old_view.remove();
                         old_view = null;
 

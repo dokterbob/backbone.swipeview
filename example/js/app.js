@@ -15,13 +15,11 @@ document.addEventListener(
 $(function () {
     var slide_list = new SlideList({
         el: '#wrapper',
-        collection: slides
-    });
-
-    slide_list.render({
+        collection: slides,
         swipeview_options: {
-            hastyPageFlip: true,
-            loop: false
+            loop: true
         }
     });
+
+    slide_list.render();
 });
