@@ -194,7 +194,7 @@
             });
             this.subViews = [null, null, null];
 
-            Backbone.view.prototype.remove.call(this);
+            Backbone.View.prototype.remove.call(this);
         },
 
         render_subview: function(page_index) {
