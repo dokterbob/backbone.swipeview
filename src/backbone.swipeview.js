@@ -131,7 +131,7 @@
             // Log events for debug purposes
             // Nice hook to handle some UX
             this.on('page_changed', function (pageindex) {
-                console.log('Page change to: '+pageindex);
+                // console.log('Page change to: '+pageindex);
 
                 // Trigger 'first_page' and 'last_page' signals on,
                 // respectively, the first and the last page.
@@ -155,7 +155,7 @@
                     if (upcoming_idx != "undefined" && upcoming_idx !== master_page.dataset.pageIndex) {
                         // Remove the old view.
                         var old_view = this.subViews[i];
-                        console.log('Deleting old view for: '+old_view.model.id);
+                        // console.log('Deleting old view for: '+old_view.model.id);
                         old_view.remove();
                         old_view = null;
 
@@ -204,7 +204,7 @@
 
         render_subview: function(page_index) {
             // Instantiate a new subview for this page.
-            console.log('Rendering SwipeView page: ', page_index);
+            // console.log('Rendering SwipeView page: ', page_index);
 
             // Request the model using the page_index from the collection.
             var obj = this.collection.at(page_index);
