@@ -174,7 +174,12 @@
                     current_subview.trigger('activated');
                 }
 
-                this.trigger('page_changed', this.gallery.pageIndex);
+                Backbone.$(this.gallery.slider).one('transitionend',
+                    Backbone.$.proxy(function (event) {
+                        this.trigger('page_changed', this.gallery.pageIndex);
+                    }, this)
+                );
+
             }, this));
 
             this.gallery.bind();
