@@ -80,6 +80,9 @@
 
                 // Update the view's model
                 this.model = model;
+
+                // Trigger page_changed
+                this.trigger('page_changed', index);
             }
         },
 
@@ -175,7 +178,7 @@
                 }
 
                 Backbone.$(this.gallery.slider).one('transitionend',
-                    Backbone.$.proxy(function (event) {
+                    Backbone.$.proxy(function () {
                         this.trigger('page_changed', this.gallery.pageIndex);
                     }, this)
                 );
