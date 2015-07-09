@@ -173,15 +173,19 @@
 
                 // Trigger page changed event on main view
                 var current_subview = this.current_subview();
-                if (current_subview) {
-                    current_subview.trigger('activated');
+
+                var cur_model = current_subview.model;
+                var index  = this.collection.indexOf(cur_model);
+                var dest_page = this.gallery.pageIndex;
+                var cur_page;
+
+                if (index === dest_page) {
+                    cur_page = dest_page;
+                } else {
+                    cur_page = index;
                 }
 
-                Backbone.$(this.gallery.slider).one('transitionend',
-                    Backbone.$.proxy(function () {
-                        this.trigger('page_changed', this.gallery.pageIndex);
-                    }, this)
-                );
+                this.trigger('page_changed', cur_page);
 
             }, this));
 
