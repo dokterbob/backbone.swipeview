@@ -173,16 +173,19 @@
 
                 // Trigger page changed event on main view
                 var current_subview = this.current_subview();
-                if (current_subview) {
-                    current_subview.trigger('activated');
-                }
+                console.assert(current_subview);
+
+                current_subview.trigger('activated');
+
+                // It turns out the pageIndex on the gallery is not reliable
+                // here, hence we use the index on the current_subview.
+                var index  = this.collection.indexOf(current_subview.model);
 
                 Backbone.$(this.gallery.slider).one('transitionend',
                     Backbone.$.proxy(function () {
-                        this.trigger('page_changed', this.gallery.pageIndex);
+                        this.trigger('page_changed', index);
                     }, this)
                 );
-
             }, this));
 
             this.gallery.bind();
